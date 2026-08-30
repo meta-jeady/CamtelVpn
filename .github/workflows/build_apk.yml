@@ -1,38 +1,70 @@
-name: Compilation APK DXS Tunnel
+name: Build DXS Tunnel APK
 
 on:
+
   push:
-    branches: [ main, master ]
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
   workflow_dispatch:
 
+
 jobs:
+
   build:
-    runs-on: ubuntu-latest
+
+    runs-on:
+      ubuntu-latest
+
 
     steps:
-      - name: Checkout code
+
+      - name: Checkout repository
         uses: actions/checkout@v4
+
 
       - name: Setup Java
         uses: actions/setup-java@v4
+
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          distribution: temurin
+          java-version: "17"
+
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.22.0'
-          channel: 'stable'
 
-      - name: Get dependencies
+        with:
+          channel: stable
+
+
+      - name: Install dependencies
         run: flutter pub get
 
-      - name: Build APK Release
+
+      - name: Analyze project
+        run: flutter analyze
+
+
+      - name: Run tests
+        run: flutter test
+
+
+      - name: Build APK
         run: flutter build apk --release
 
+
       - name: Upload APK
-        uses: actions/upload-artifact@v4
+
+        uses:
+          actions/upload-artifact@v4
+
         with:
-          name: DXS-Tunnel-v1.0
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: DXS-Tunnel-APK
+
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
