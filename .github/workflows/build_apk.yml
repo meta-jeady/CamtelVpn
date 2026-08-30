@@ -1,0 +1,38 @@
+name: Compilation APK DXS Tunnel
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Recuperer le code
+      uses: actions/checkout@v4
+
+    - name: Configuration de Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+
+    - name: Installer Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.x'
+        channel: 'stable'
+        cache: true
+
+    - name: Executer pub get
+      run: flutter pub get
+
+    - name: Generer l'APK Release
+      run: flutter build apk --release
+
+    - name: Exporter le livrable APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: dxs-tunnel-apk
+        path: build/app/outputs/flutter-apk/app-release.apk
