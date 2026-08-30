@@ -1,23 +1,31 @@
-# 🚀 DXS Tunnel v1.0 - CamtelVpn
+# DXS Tunnel v1.0
 
-Application de tunneling réseau UDP ultra-rapide et optimisée pour le Cameroun. 
-Interface moderne en Flutter/Dart avec moteur basé sur le protocole **WireGuard**.
+DXS Tunnel est un client Android basé sur Flutter et WireGuard.
 
-### ✨ Fonctionnalités
+## Fonctionnalités
 
-- ⚡ Connexion UDP optimisée pour faible latence
-- 🔒 Sécurisé avec le protocole WireGuard
-- 📱 Interface Flutter fluide et légère
-- 🇨🇲 Optimisé pour Camtel / MTN / Orange Cameroun
-- 🔋 Faible consommation batterie
+- Client WireGuard Android
+- Vrai tunnel VPN
+- Import manuel de configuration WireGuard
+- Connect / Disconnect
+- Statut du tunnel
+- Statistiques RX/TX
+- Compilation APK automatique avec GitHub Actions
 
-### 📥 Installation
+## Configuration
 
-1. Télécharge la dernière version dans [Releases](../../releases)
-2. Installe le fichier `DXS-Tunnel-v1.0.apk`
-3. Ouvre l'app et autorise le VPN
+DXS Tunnel utilise le format WireGuard standard.
 
-### ⚙️ Utilisation
+Exemple :
 
-Insérez votre configuration brute sous ce format :
+```ini
+[Interface]
+PrivateKey = CLIENT_PRIVATE_KEY
+Address = 10.0.0.2/32
+DNS = 1.1.1.1
 
+[Peer]
+PublicKey = SERVER_PUBLIC_KEY
+Endpoint = SERVER_IP:51820
+AllowedIPs = 0.0.0.0/0, ::/0
+PersistentKeepalive = 25
