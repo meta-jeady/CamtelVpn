@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'views/home_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const DxsTunnelApp());
 }
 
@@ -14,14 +17,9 @@ class DxsTunnelApp extends StatelessWidget {
       title: 'DXS Tunnel',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.dark,
-        primaryColor: const Color(0xFF00FF66),
-        scaffoldBackgroundColor: const Color(0xFF0D0E15),
-        colorScheme: const ColorScheme.dark(
-          primary: Color(0xFF00FF66),
-          secondary: Color(0xFF00E5FF),
-          surface: Color(0xFF161925),
-        ),
+        colorSchemeSeed: Colors.cyan,
       ),
       home: const HomeScreen(),
     );
